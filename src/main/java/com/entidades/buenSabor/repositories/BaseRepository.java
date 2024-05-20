@@ -23,6 +23,13 @@ public interface BaseRepository <E extends Base, ID extends Serializable> extend
         save(entity);
     }
 
+    @Transactional
+    default void alta(E entity) {
+        logger.info("EJECUTANDO ALTA SOBREESCRITO");
+        entity.setEliminado(false);
+        save(entity);
+    }
+
     @Override
     default E getById(ID id){
         logger.info("EJECUTANDO GEY BY ID SOBREESCRITO");

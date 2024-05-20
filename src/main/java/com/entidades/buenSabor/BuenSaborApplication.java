@@ -15,6 +15,7 @@ import org.springframework.context.annotation.Bean;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Optional;
 import java.util.Random;
 import java.util.Set;
 
@@ -26,12 +27,15 @@ public class BuenSaborApplication {
 	@Autowired
 	private ClienteRepository clienteRepository;
 	@Autowired
-	private ImagenPersonaRepository imagenPersonaRepository;
+	private ImagenClienteRepository imagenPersonaRepository;
 	@Autowired
 	private PromocionDetalleRepository promocionDetalleRepository;
 
 	@Autowired
-	private UsuarioRepository usuarioRepository;
+	private UsuarioEmpleadoRepository usuarioEmpleadoRepository;
+
+	@Autowired
+	private UsuarioClienteRepository usuarioClienteRepository;
 
 	@Autowired
 	private PaisRepository paisRepository;
@@ -77,15 +81,18 @@ public class BuenSaborApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(BuenSaborApplication.class, args);
-		logger.info("Estoy activo en el main");
+		logger.info("Estoy activo en el main Alberto");
 	}
-/*
+
 	@Bean
 	@Transactional
 	CommandLineRunner init(ClienteRepository clienteRepository,
-						   ImagenPersonaRepository imagenPersonaRepository,
+						   ImagenClienteRepository imagenClienteRepository,
+						   ImagenPromocionRepository imagenPromocionRepository,
+						   ImagenEmpleadoRepository imagenEmpleadoRepository,
 						   PromocionDetalleRepository promocionDetalleRepository,
-						   UsuarioRepository usuarioRepository,
+						   UsuarioClienteRepository usuarioClienteRepository,
+						   UsuarioEmpleadoRepository usuarioEmpleaoRepository,
 						   PaisRepository paisRepository,
 						   ProvinciaRepository provinciaRepository,
 						   LocalidadRepository localidadRepository,
@@ -127,7 +134,7 @@ public class BuenSaborApplication {
 
 			// Crear 1 empresa, 2 sucursales para esa empresa y los Domicilios para esas sucursales
 
-			Empresa empresaCarlos = Empresa.builder().nombre("Lo de Carlos").cuil(30546780L).razonSocial("Venta de Alimentos").build();
+			Empresa empresaCarlos = Empresa.builder().nombre("Lo de Carlos").cuil(30546780l).razonSocial("Venta de Alimentos").build();
 			empresaRepository.save(empresaCarlos);
 
 			Sucursal sucursalGuaymallen = Sucursal.builder().
@@ -263,10 +270,10 @@ public class BuenSaborApplication {
 			ImagenArticulo imagenArticuloHarina = ImagenArticulo.builder().url("https://mandolina.co/wp-content/uploads/2023/03/648366622-1024x683.jpg").build();
 			ImagenArticulo imagenArticuloQueso = ImagenArticulo.builder().url("https://superdepaso.com.ar/wp-content/uploads/2021/06/SANTAROSA-PATEGRAS-04.jpg").build();
 			ImagenArticulo imagenArticuloTomate = ImagenArticulo.builder().url("https://thefoodtech.com/wp-content/uploads/2020/06/Componentes-de-calidad-en-el-tomate-828x548.jpg").build();
-			imagenArticuloRepository.save(imagenArticuloCoca);
-			imagenArticuloRepository.save(imagenArticuloHarina);
-			imagenArticuloRepository.save(imagenArticuloQueso);
-			imagenArticuloRepository.save(imagenArticuloTomate);
+			//imagenArticuloRepository.save(imagenArticuloCoca);
+			//imagenArticuloRepository.save(imagenArticuloHarina);
+			//imagenArticuloRepository.save(imagenArticuloQueso);
+			//imagenArticuloRepository.save(imagenArticuloTomate);
 
 			//ASOCIAMOS IMAGEN CON INSUMOS
 			cocaCola.getImagenes().add(imagenArticuloCoca);
@@ -304,8 +311,8 @@ public class BuenSaborApplication {
 					url("https://storage.googleapis.com/fitia-api-bucket/media/images/recipe_images/1002846.jpg").
 					build();
 			ImagenArticulo imagenArticuloPizzaNapolitana = ImagenArticulo.builder().url("https://assets.elgourmet.com/wp-content/uploads/2023/03/8metlvp345_portada-pizza-1024x686.jpg.webp").build();
-			imagenArticuloRepository.save(imagenArticuloPizzaMuzarella);
-			imagenArticuloRepository.save(imagenArticuloPizzaNapolitana);
+			//imagenArticuloRepository.save(imagenArticuloPizzaMuzarella);
+			//imagenArticuloRepository.save(imagenArticuloPizzaNapolitana);
 
 			//ASOCIAMOS IMAGEN CON ARTICULO MANUFACTURADO
 			pizzaMuzarella.getImagenes().add(imagenArticuloPizzaMuzarella);
@@ -350,6 +357,7 @@ public class BuenSaborApplication {
 			//	categoriaRepository.save(categoriaGaseosas); CREO QUE ESTA DE MAS REVISAR
 
 
+
 			// Crear promocion para sucursal - Dia de los enamorados
 			// Tener en cuenta que esa promocion es exclusivamente para una sucursal determinada d euna empresa determinada
 			Promocion promocionDiaEnamorados = Promocion.builder().denominacion("Dia de los Enamorados")
@@ -362,8 +370,15 @@ public class BuenSaborApplication {
 					.tipoPromocion(TipoPromocion.PROMOCION)
 					.build();
 			// Agregamos los Manufacturados y alguna bebida que figura como insumo
-			promocionDiaEnamorados.getArticulos().add(cocaCola);
-			promocionDiaEnamorados.getArticulos().add(pizzaNapolitana);
+			PromocionDetalle detallePromo1=PromocionDetalle.builder().cantidad(2).articulo(pizzaNapolitana).build();
+
+			PromocionDetalle detallePromo2=PromocionDetalle.builder().cantidad(1).articulo(cocaCola).build();
+
+
+
+
+			promocionDiaEnamorados.getPromocionDetalles().add(detallePromo1);
+			promocionDiaEnamorados.getPromocionDetalles().add(detallePromo2);
 
 			promocionRepository.save(promocionDiaEnamorados);
 
@@ -377,8 +392,11 @@ public class BuenSaborApplication {
 					.tipoPromocion(TipoPromocion.PROMOCION)
 					.build();
 			// Agregamos los Manufacturados y alguna bebida que figura como insumo
-			promocionDiaEnamorados.getArticulos().add(cocaCola);
-			promocionDiaEnamorados.getArticulos().add(pizzaMuzarella);
+			PromocionDetalle detallePromo3=PromocionDetalle.builder().cantidad(1).articulo(pizzaNapolitana).build();
+
+			PromocionDetalle detallePromo4=PromocionDetalle.builder().cantidad(2).articulo(cocaCola).build();
+			promocionDiaEnamorados.getPromocionDetalles().add(detallePromo3);
+			promocionDiaEnamorados.getPromocionDetalles().add(detallePromo4);
 
 			promocionRepository.save(pizzaConCoca);
 
@@ -423,24 +441,24 @@ public class BuenSaborApplication {
 //			sucursalRepository.guardarSucursalConValidacion(sucursalMarDelPlata);
 
 			//Crea un cliente y un usuario
-			ImagenPersona imagenCliente = ImagenPersona.builder().url("https://hips.hearstapps.com/hmg-prod/images/la-la-land-final-1638446140.jpg").build();
-			imagenPersonaRepository.save(imagenCliente);
-			ImagenPersona imagenEmpleado = ImagenPersona.builder().url("https://hips.hearstapps.com/hmg-prod/images/la-la-land-final-1638446140.jpg").build();
-			imagenPersonaRepository.save(imagenEmpleado);
+			ImagenCliente imagenCliente = ImagenCliente.builder().url("https://hips.hearstapps.com/hmg-prod/images/la-la-land-final-1638446140.jpg").build();
+			imagenClienteRepository.save(imagenCliente);
+			ImagenEmpleado imagenEmpleado = ImagenEmpleado.builder().url("https://hips.hearstapps.com/hmg-prod/images/la-la-land-final-1638446140.jpg").build();
+			imagenEmpleadoRepository.save(imagenEmpleado);
 			Domicilio domicilioCliente = Domicilio.builder().cp(5519).calle("Cangallo").numero(800).piso(0).nroDpto(1).localidad(localidad1).build();
 			domicilioRepository.save(domicilioCliente);
-			Usuario usuario = Usuario.builder().userName("sebastian").auth0Id("9565a49d-ecc1-4f4e-adea-6cdcb7edc4a3").build();
-			usuarioRepository.save(usuario);
-			Usuario usuario2 = Usuario.builder().userName("martin").auth0Id("9565a49d-ecc1-4f4e-adea-6cdcb7edc43a").build();
-			usuarioRepository.save(usuario2);
+			UsuarioCliente usuarioCliente = UsuarioCliente.builder().userName("sebastian").auth0Id("9565a49d-ecc1-4f4e-adea-6cdcb7edc4a3").build();
+			usuarioClienteRepository.save(usuarioCliente);
+			UsuarioEmpleado usuarioEmpleado = UsuarioEmpleado.builder().userName("martin").auth0Id("9565a49d-ecc1-4f4e-adea-6cdcb7edc43a").build();
+			usuarioEmpleadoRepository.save(usuarioEmpleado);
 
 			Cliente cliente = new Cliente();
 
-			cliente.setImagenPersona(imagenCliente);
+			cliente.setImagenCliente(imagenCliente);
 			cliente.setEmail("correoFalso@gmail.com");
 			cliente.setNombre("Sebastian");
 			cliente.setApellido("Wilder");
-			cliente.setUsuario(usuario);
+			cliente.setUsuario(usuarioCliente);
 			cliente.setTelefono("2615920825");
 			//	cliente.setEstaActivo(true);
 			cliente.getDomicilios().add(domicilioCliente);
@@ -452,11 +470,12 @@ public class BuenSaborApplication {
 			empleado.setTipoEmpleado(Rol.CAJERO);
 			empleado.setNombre("CorreoFalso");
 			empleado.setApellido("Falsin");
-			empleado.setUsuario(usuario2);
+			empleado.setUsuarioEmpleado(usuarioEmpleado);
 			empleado.setTelefono("2612151170");
 			//	empleado.setEstaActivo(true);
-			empleado.setImagenPersona(imagenEmpleado);
+			empleado.setImagenEmpleado(imagenEmpleado);
 			empleado.setSucursal(sucursalGuaymallen);
+			empleado.setTipoEmpleado(Rol.ADMIN);
 			sucursalGuaymallen.getEmpleados().add(empleado);
 			empleadoRepository.save(empleado);
 			logger.info("Empleado{}:",empleado);
@@ -498,6 +517,101 @@ public class BuenSaborApplication {
 
 			pedidoRepository.save(pedido);
 
+
+			//Prueba de carga perezosa
+			//Empresa-Sucursal
+			//Sucursal-Promocion
+			//Sucursal-Categoria
+			//Sucursal-Empleado
+
+			Domicilio domicilioSucu1 = Domicilio.builder().cp(5519).calle("calle1").numero(2684).piso(0).nroDpto(5).
+					localidad(localidad1).build();
+
+			domicilioRepository.save(domicilioSucu1);
+
+			Domicilio domicilioSucu2 = Domicilio.builder().cp(5519).calle("calle2").numero(2684).piso(0).nroDpto(5).
+					localidad(localidad1).build();
+			domicilioRepository.save(domicilioSucu2);
+
+			Sucursal sucursal = Sucursal.builder()
+					.nombre("sucursal prueba")
+					.domicilio(domicilioSucu1)
+					.horarioApertura(LocalTime.of(12,30,00))
+					.horarioApertura(LocalTime.of(20,00,00))
+					.build();
+			sucursalRepository.save(sucursal);
+			Sucursal sucursal2 = Sucursal.builder()
+					.nombre("sucursal prueba2")
+					.domicilio(domicilioSucu2)
+					.horarioApertura(LocalTime.of(12,30,00))
+					.horarioApertura(LocalTime.of(20,00,00))
+					.build();
+			sucursalRepository.save(sucursal2);
+
+			Empresa empresa = Empresa.builder()
+					.nombre("Empresa de prueba")
+					.cuil(99999l)
+					.razonSocial("Razon social")
+					.build();
+			empresaRepository.save(empresa);
+
+			Categoria categoria = Categoria.builder()
+					.denominacion("Categoria de prueba")
+					.build();
+			categoriaRepository.save(categoria);
+			/*
+			//PRUEBA LAZY -> FALLA
+			var empresaRepo = empresaRepository.findById(2L);
+			if(empresaRepo.isPresent()){
+				Optional<Sucursal> sucursalRepo = sucursalRepository.findById(3L);
+				Optional<Sucursal> sucursalRepo2 = sucursalRepository.findById(4L);
+				if(sucursalRepo2.isPresent() && sucursalRepo.isPresent()){
+					empresaRepo.get().getSucursales().add(sucursalRepo.get());
+					empresaRepo.get().getSucursales().add(sucursalRepo2.get());
+					empresaRepository.save(empresaRepo.get());
+				}
+			}*/
+			var categoriaRep = categoriaRepository.findWithSucursalesById(6L);//CON FINDBYID NO SE PUEDE AÑADIR SUCURSALES POR LAZY
+			var empresaRepo = empresaRepository.findWithSucursalesById(2L);
+			Sucursal sucursalRepo = sucursalRepository.findWithEmpleadosById(3L);//CON FINDBYID NO SE PUEDE AÑADIR EMPLEADOS POR LAZY
+			Optional<Sucursal> sucursalRepo2 = sucursalRepository.findById(4L);
+			Sucursal sucursalRepo3 = sucursalRepository.findWithCategoriasById(3L);//CON FINDBYID NO SE PUEDE AÑADIR CATEGORIAS POR LAZY
+			if(sucursalRepo2.isPresent()){
+				empresaRepo.getSucursales().add(sucursalRepo);
+				empresaRepo.getSucursales().add(sucursalRepo2.get());
+				empresaRepository.save(empresaRepo);
+				sucursalRepo.setEmpresa(empresaRepo);
+				sucursalRepo2.get().setEmpresa(empresaRepo);
+				sucursalRepo3.getCategorias().add(categoriaRep);
+				sucursalRepository.save(sucursalRepo);
+				sucursalRepository.save(sucursalRepo2.get());
+				sucursalRepository.save(sucursalRepo3);
+				categoriaRep.getSucursales().add(sucursalRepo);
+				categoriaRep.getSucursales().add(sucursalRepo2.get());
+				var empleado1 = empleadoRepository.findById(2L);
+				if(empleado1.isPresent()){
+					sucursalRepo.getEmpleados().add(empleado1.get());
+
+					sucursalRepository.save(sucursalRepo);
+				}
+			}
+
+			logger.info("------------Nombre de sucursales de la empresa id 2------------");
+			empresaRepo.getSucursales()
+					.stream()
+					.map(Sucursal::getNombre)
+					.forEach(logger::info);
+
+			logger.info("------------Nombre de empresa de la sucursal id 3------------");
+			logger.info("{}",sucursalRepo.getEmpresa().getNombre());
+			logger.info("------------Empleados de la sucursal id 3------------");
+			sucursalRepo.getEmpleados().stream()
+					.map(Empleado::getNombre)
+					.forEach(logger::info);
+
+			logger.info("------------Nombre de empresa de la sucursal id 4------------");
+			logger.info("{}",sucursalRepo2.get().getEmpresa().getNombre());
+
 			logger.info("----------------Sucursal Guaymallen ---------------------");
 			logger.info("{}",sucursalGuaymallen);
 			logger.info("----------------Sucursal Mardel Plata ---------------------");
@@ -505,6 +619,6 @@ public class BuenSaborApplication {
 			logger.info("----------------Pedido ---------------------");
 			logger.info("{}",pedido);
 		};
-	}*/
+	}
 
 }

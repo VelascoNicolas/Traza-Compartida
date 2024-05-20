@@ -1,4 +1,22 @@
 package com.entidades.buenSabor.domain.dto;
 
-public class CategoriaDto {
+
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.util.HashSet;
+import java.util.Set;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+public class CategoriaDto extends BaseDto {
+    private String denominacion;
+    private Set<SucursalDto> sucursales = new HashSet<>();
+    private Set<ArticuloDto> articulos = new HashSet<>();
+    private Set<CategoriaDto> subCategorias = new HashSet<>();
 }

@@ -4,7 +4,9 @@ import com.entidades.buenSabor.domain.enums.Rol;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.envers.NotAudited;
 
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,9 +17,21 @@ import java.util.Set;
 @Getter
 @SuperBuilder
 //@Audited
-public class Empleado extends Persona{
-
+public class Empleado extends Base{
     private Rol tipoEmpleado;
+    private String nombre;
+    private String apellido;
+    private String telefono;
+    private String email;
+    private LocalDate fechaNacimiento;
+
+    @OneToOne
+    private UsuarioEmpleado usuarioEmpleado;
+
+    @OneToOne
+    @NotAudited
+    private ImagenEmpleado imagenEmpleado;
+
 
     @OneToMany(mappedBy = "empleado", cascade = CascadeType.REFRESH, orphanRemoval = true)
     @ToString.Exclude
