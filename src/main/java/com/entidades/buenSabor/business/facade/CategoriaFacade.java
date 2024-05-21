@@ -7,5 +7,5 @@ import com.entidades.buenSabor.domain.dto.CategoriaShortDto;
 public interface CategoriaFacade extends BaseFacade<CategoriaDto,Long> {
     String deleteByID(Long id);
 
-    CategoriaShortDto postCategoria(CategoriaShortDto categoriaShortDto);
+    CategoriaShortDto postCategoria(CategoriaDto categoriaDto);
 }

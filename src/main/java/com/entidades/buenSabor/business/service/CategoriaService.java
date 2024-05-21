@@ -5,4 +5,5 @@ import com.entidades.buenSabor.domain.entities.Categoria;
 
 public interface CategoriaService extends BaseService<Categoria,Long> {
     String deleteByID(Long id);
+    void asociarSucursalCategoria(Categoria categoria);
 }

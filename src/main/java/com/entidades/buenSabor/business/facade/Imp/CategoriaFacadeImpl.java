@@ -30,9 +30,10 @@ public class CategoriaFacadeImpl extends BaseFacadeImp<Categoria, CategoriaDto,L
     }
 
     @Override
-    public CategoriaShortDto postCategoria(CategoriaShortDto categoriaShortDto) {
-        Categoria request = categoriaMapper.toEntity(categoriaShortDto);
+    public CategoriaShortDto postCategoria(CategoriaDto categoriaDto) {
+        Categoria request = categoriaMapper.toEntity(categoriaDto);
         Categoria save = categoriaService.create(request);
-        return categoriaMapper.toShortDTO(save);
+        categoriaService.asociarSucursalCategoria(save);
+        return categoriaMapper.toShortDTO(request);
     }
 }

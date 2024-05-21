@@ -12,29 +12,40 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/categoria")
 @CrossOrigin(origins="*")
-public class CategoriaController extends BaseControllerImp<Categoria, CategoriaDto,Long, CategoriaFacadeImpl> {
+public class CategoriaController {
     private static final Logger logger = LoggerFactory.getLogger(BaseControllerImp.class);
 
     @Autowired
     private CategoriaFacade categoriaFacade;
 
-    public CategoriaController(CategoriaFacadeImpl facade) {super(facade);
+    @GetMapping
+    public ResponseEntity<List<CategoriaDto>> getAll() {
+        logger.info("INICIO GET ALL{}");
+        return ResponseEntity.ok(categoriaFacade.getAll());
     }
 
-   /* @PostMapping("/post")
-    public ResponseEntity<?> createCategoria(@RequestBody CategoriaShortDto categoriaShortDto) {
-        logger.info("INICIO CREATE {}",categoriaShortDto.getClass());
-        return ResponseEntity.ok(categoriaFacade.postCategoria(categoriaShortDto));
-    }*/
+    @GetMapping("/{id}")
+    public ResponseEntity<CategoriaDto> getById(@PathVariable Long id) {
+        logger.info("INICIO GET BY Long {}", id);
+        return ResponseEntity.ok(categoriaFacade.getById(id));
+    }
 
-    /*@DeleteMapping("/{id}")
+    @PostMapping
+    public ResponseEntity<?> createCategoria(@RequestBody CategoriaDto categoriaDto) {
+        logger.info("INICIO CREATE {}",categoriaDto.getClass());
+        return ResponseEntity.ok(categoriaFacade.postCategoria(categoriaDto));
+    }
+
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteCategoria(@PathVariable Long id) {
         logger.info("INICIO DELETE BY Long");
         return ResponseEntity.ok(categoriaFacade.deleteByID(id));
-    }*/
+    }
 
 
 }

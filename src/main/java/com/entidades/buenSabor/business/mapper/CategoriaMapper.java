@@ -5,9 +5,9 @@ import com.entidades.buenSabor.domain.dto.CategoriaShortDto;
 import com.entidades.buenSabor.domain.entities.Categoria;
 import org.mapstruct.Mapper;
 
-@Mapper(componentModel = "spring",uses={ArticuloMapper.class, SucursalMapper.class})
+@Mapper(componentModel = "spring", uses = {ArticuloMapper.class, SucursalMapper.class})
 public interface CategoriaMapper extends BaseMapper<Categoria, CategoriaDto> {
 
-    Categoria toEntity(CategoriaShortDto source);
+    Categoria toEntity(CategoriaDto source);
     CategoriaShortDto toShortDTO(Categoria source);
 }
