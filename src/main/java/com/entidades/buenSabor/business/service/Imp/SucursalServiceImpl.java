@@ -39,16 +39,14 @@ public class SucursalServiceImpl extends BaseServiceImp<Sucursal,Long> implement
 
     @Override
     public Sucursal actualizarSucursal(Long id,Sucursal sucursal) {
-        var sucursalActualizar = sucursalRepository.findById(sucursal.getId());
-        if(sucursalActualizar.isEmpty()){
-            throw new RuntimeException("No se puede actualizar el sucursal");
-        }
-        var domicilio = domicilioRepository.findById(sucursal.getDomicilio().getId());
-        domicilioRepository.save(sucursal.getDomicilio());
-        var empresa = empresaRepository.findById(sucursal.getEmpresa().getId());
+        var sucursalActualizar = sucursalRepository.getById(sucursal.getId());
 
-        sucursal.setDomicilio(domicilio.get());
-        sucursal.setEmpresa(empresa.get());
+        var domicilio = domicilioRepository.getById(sucursal.getDomicilio().getId());
+        domicilioRepository.save(sucursal.getDomicilio());
+        var empresa = empresaRepository.getById(sucursal.getEmpresa().getId());
+
+        sucursal.setDomicilio(domicilio);
+        sucursal.setEmpresa(empresa);
         return sucursalRepository.save(sucursal);
     }
 
