@@ -51,4 +51,10 @@ public class ArticuloManufacturadoController  {
         return ResponseEntity.ok(articuloManufacturadoFacade.deleteById(id));
     }
 
+    @GetMapping("/sucursal/{id}")
+    public ResponseEntity<?> getBySucursal(@PathVariable Long id) {
+        logger.info("INICIO GET BY Long {}", id);
+        return ResponseEntity.ok(articuloManufacturadoFacade.getBySucursal(id));
+    }
+
 }

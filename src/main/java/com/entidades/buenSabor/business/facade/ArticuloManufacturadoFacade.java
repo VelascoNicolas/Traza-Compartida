@@ -10,4 +10,5 @@ public interface ArticuloManufacturadoFacade {
     public List<ArticuloManufacturadoDto> getAll();
     public String deleteById(Long id);
     public ArticuloManufacturadoDto update(ArticuloManufacturadoDto request, Long id);
+    public List<ArticuloManufacturadoDto> getBySucursal(Long id);
 }

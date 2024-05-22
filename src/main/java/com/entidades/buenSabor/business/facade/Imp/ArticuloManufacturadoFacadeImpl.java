@@ -54,4 +54,10 @@ public class ArticuloManufacturadoFacadeImpl implements ArticuloManufacturadoFac
         ArticuloManufacturado updatedEntity = articuloManufacturadoService.update(articuloManufacturado,id);
         return (ArticuloManufacturadoDto) articuloMapper.toDTO(updatedEntity);
     }
+
+    @Override
+    public List<ArticuloManufacturadoDto> getBySucursal(Long id) {
+        List<ArticuloManufacturado> articulosManufacturados = articuloManufacturadoService.getBySucursal(id);
+        return articuloMapper.toDtoListManufacturado(articulosManufacturados);
+    }
 }
