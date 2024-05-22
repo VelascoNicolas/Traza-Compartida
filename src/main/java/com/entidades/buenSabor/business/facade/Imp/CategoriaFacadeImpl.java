@@ -12,6 +12,8 @@ import com.entidades.buenSabor.domain.entities.Categoria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CategoriaFacadeImpl extends BaseFacadeImp<Categoria, CategoriaDto,Long> implements CategoriaFacade {
     public CategoriaFacadeImpl(BaseService<Categoria, Long> baseService, BaseMapper<Categoria, CategoriaDto> baseMapper) {
@@ -35,5 +37,14 @@ public class CategoriaFacadeImpl extends BaseFacadeImp<Categoria, CategoriaDto,L
         Categoria save = categoriaService.create(request);
         categoriaService.asociarSucursalCategoria(save);
         return categoriaMapper.toShortDTO(request);
+    }
+
+    @Override
+    public List<CategoriaShortDto> getCategoriasBySucursal(Long idSucursal) {
+        var entities = categoriaService.getCategoriasBySucursal(idSucursal);
+        return entities
+                .stream()
+                .map(categoriaMapper::toShortDTO)
+                .toList();
     }
 }

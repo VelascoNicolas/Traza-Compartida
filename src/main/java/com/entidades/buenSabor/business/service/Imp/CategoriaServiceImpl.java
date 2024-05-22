@@ -8,6 +8,8 @@ import com.entidades.buenSabor.repositories.CategoriaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CategoriaServiceImpl extends BaseServiceImp<Categoria,Long> implements CategoriaService {
 
@@ -31,5 +33,8 @@ public class CategoriaServiceImpl extends BaseServiceImp<Categoria,Long> impleme
         }
     }
 
-
+    @Override
+    public List<Categoria> getCategoriasBySucursal(Long idSucursal) {
+        return categoriaRepository.getCategoriasBySucursal(idSucursal);
+    }
 }

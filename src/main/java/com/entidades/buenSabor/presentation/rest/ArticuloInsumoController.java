@@ -53,4 +53,10 @@ public class ArticuloInsumoController  {
         logger.info("INICIO DELETE BY Long");
         return ResponseEntity.ok(articuloInsumoFacade.deleteById(id));
     }
+
+    @GetMapping("/categoria/{id}")
+    public ResponseEntity<?> getArticulosInsumosByCategoria(@PathVariable Long id) {
+        logger.info("INICIO GET ARTICULOS INSUMOS BY CATEGORIA");
+        return ResponseEntity.ok(articuloInsumoFacade.getArticuloInsumoBySucursal(id));
+    }
 }

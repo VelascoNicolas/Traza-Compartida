@@ -57,4 +57,10 @@ public class ArticuloInsumoFacadeImpl  implements ArticuloInsumoFacade {
         ArticuloInsumo updatedEntity = articuloInsumoService.update(articuloInsumo,id);
         return (ArticuloInsumoDto) articuloMapper.toDTO(updatedEntity);
     }
+
+    @Override
+    public List<ArticuloInsumoDto> getArticuloInsumoBySucursal(Long idSucursal) {
+        List<ArticuloInsumo> articulosInsumos = articuloInsumoService.getArticuloInsumoBySucursal(idSucursal);
+        return articuloMapper.toDtoListInsumo(articulosInsumos);
+    }
 }

@@ -277,11 +277,7 @@ public class BuenSaborApplication {
 			harina.getImagenes().add(imagenArticuloHarina);
 			queso.getImagenes().add(imagenArticuloQueso);
 			tomate.getImagenes().add(imagenArticuloTomate);
-			// Grabamos los Articulos
-			articuloInsumoRepository.save(cocaCola);
-			articuloInsumoRepository.save(harina);
-			articuloInsumoRepository.save(queso);
-			articuloInsumoRepository.save(tomate);
+
 
 
 			//ASOCIAMOS CATEGORIA CON INSUMOS
@@ -289,8 +285,18 @@ public class BuenSaborApplication {
 			categoriaInsumos.getArticulos().add(queso);
 			categoriaInsumos.getArticulos().add(tomate);
 			categoriaGaseosas.getArticulos().add(cocaCola);
+			harina.setCategoria(categoriaInsumos);
+			queso.setCategoria(categoriaInsumos);
+			tomate.setCategoria(categoriaInsumos);
+			cocaCola.setCategoria(categoriaGaseosas);
 			categoriaRepository.save(categoriaInsumos);
 			categoriaRepository.save(categoriaGaseosas);
+
+			// Grabamos los Articulos
+			articuloInsumoRepository.save(cocaCola);
+			articuloInsumoRepository.save(harina);
+			articuloInsumoRepository.save(queso);
+			articuloInsumoRepository.save(tomate);
 
 			// Crear Articulos Manufacturados
 			ArticuloManufacturado pizzaMuzarella = ArticuloManufacturado.builder().
@@ -336,10 +342,12 @@ public class BuenSaborApplication {
 			//ASOCIAMOS LOS DETALLE MANUFACTURADO AL ARTICULO MANUFACTURADO - LA RECETA
 			pizzaMuzarella.getArticuloManufacturadoDetalles().add(detalle1);
 			pizzaMuzarella.getArticuloManufacturadoDetalles().add(detalle2);
+			pizzaMuzarella.setCategoria(categoriaPizzas);
 
 			pizzaNapolitana.getArticuloManufacturadoDetalles().add(detalle3);
 			pizzaNapolitana.getArticuloManufacturadoDetalles().add(detalle4);
 			pizzaNapolitana.getArticuloManufacturadoDetalles().add(detalle5);
+			pizzaNapolitana.setCategoria(categoriaPizzas);
 			// GRABAMOS LA RECETA
 			articuloManufacturadoRepository.save(pizzaMuzarella);
 			articuloManufacturadoRepository.save(pizzaNapolitana);

@@ -12,4 +12,5 @@ public interface ArticuloInsumoFacade  {
     public List<ArticuloInsumoDto> getAll();
     public String deleteById(Long id);
     public ArticuloInsumoDto update(ArticuloInsumoDto request, Long id);
+    public List<ArticuloInsumoDto> getArticuloInsumoBySucursal(Long idSucursal);
 }
