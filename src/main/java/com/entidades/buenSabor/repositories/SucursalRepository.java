@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 
 @Repository
 public interface SucursalRepository extends BaseRepository<Sucursal,Long> {
@@ -15,4 +17,7 @@ public interface SucursalRepository extends BaseRepository<Sucursal,Long> {
 
     @Query("SELECT s FROM Sucursal s LEFT JOIN FETCH s.categorias WHERE s.id = :id")
     Sucursal findWithCategoriasById(@Param("id") Long id);
+
+    @Query(value = "SELECT * FROM SUCURSAL WHERE EMPRESA_ID = ?1", nativeQuery = true)
+    List<Sucursal> getAllByEmpresa(Long idEmpresa);
 }

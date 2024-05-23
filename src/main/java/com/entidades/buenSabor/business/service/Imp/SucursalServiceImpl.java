@@ -13,6 +13,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class SucursalServiceImpl extends BaseServiceImp<Sucursal,Long> implements SucursalService {
    @Autowired
@@ -48,6 +50,11 @@ public class SucursalServiceImpl extends BaseServiceImp<Sucursal,Long> implement
         sucursal.setDomicilio(domicilio);
         sucursal.setEmpresa(empresa);
         return sucursalRepository.save(sucursal);
+    }
+
+    @Override
+    public List<Sucursal> getAllByEmpresa(Long idEmpresa) {
+        return sucursalRepository.getAllByEmpresa(idEmpresa);
     }
 
 

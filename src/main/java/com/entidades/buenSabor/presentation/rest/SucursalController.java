@@ -13,6 +13,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/sucursal")
 @CrossOrigin("*")
@@ -34,6 +36,12 @@ public class SucursalController extends BaseControllerImp<Sucursal, SucursalDto,
        logger.info("Editing Sucursal "+id);
        logger.info("Editing Sucursal "+dto.getId());
         return ResponseEntity.ok().body(facade.updateSucursal(id, dto));
+    }
+
+    @GetMapping("/empresa/{idEmpresa}")
+    public ResponseEntity<List<SucursalDto>> getAllByEmpresa(@PathVariable Long idEmpresa) {
+        logger.info("Getting All Sucursales by Empresa " + idEmpresa);
+        return ResponseEntity.ok().body(facade.getAllByEmpresa(idEmpresa));
     }
 
 }
