@@ -1,11 +1,9 @@
 package com.entidades.buenSabor.domain.entities;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.envers.NotAudited;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -20,7 +18,13 @@ public class Empresa extends Base{
 
     private String nombre;
     private String razonSocial;
+    @Column(name = "cuil", unique = true)
     private Long cuil;
+
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "empresa_id")
+    @NotAudited
+    private Set<ImagenEmpresa> imagenes;
 
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "empresa")

@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Set;
 
 
-@Mapper(componentModel = "spring",uses = {ArticuloManufacturadoDetalleMapper.class})
+@Mapper(componentModel = "spring",uses = {ArticuloManufacturadoDetalleMapper.class, ImagenArticuloMapper.class})
 public interface ArticuloMapper extends BaseMapper<Articulo,ArticuloDto> {
 
     @Named("toDto")

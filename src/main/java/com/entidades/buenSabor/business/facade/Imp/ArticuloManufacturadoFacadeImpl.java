@@ -6,9 +6,11 @@ import com.entidades.buenSabor.business.service.ArticuloManufacturadoService;
 import com.entidades.buenSabor.domain.dto.ArticuloManufacturadoDto;
 import com.entidades.buenSabor.domain.entities.ArticuloManufacturado;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
+import java.util.*;
 
 @Service
 public class ArticuloManufacturadoFacadeImpl implements ArticuloManufacturadoFacade {
@@ -59,5 +61,20 @@ public class ArticuloManufacturadoFacadeImpl implements ArticuloManufacturadoFac
     public List<ArticuloManufacturadoDto> getBySucursal(Long id) {
         List<ArticuloManufacturado> articulosManufacturados = articuloManufacturadoService.getBySucursal(id);
         return articuloMapper.toDtoListManufacturado(articulosManufacturados);
+    }
+
+    @Override
+    public ResponseEntity<List<Map<String, Object>>> getAllImagesByArticuloId(Long id) {
+        return articuloManufacturadoService.getAllImagesByArticuloId(id);
+    }
+
+    @Override
+    public ResponseEntity<String> uploadImages(MultipartFile[] files, Long id) {
+        return articuloManufacturadoService.uploadImages(files,id);
+    }
+
+    @Override
+    public ResponseEntity<String> deleteImage(String publicId, Long id) {
+        return articuloManufacturadoService.deleteImage(publicId, id);
     }
 }
