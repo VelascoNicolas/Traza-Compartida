@@ -57,11 +57,11 @@ public class CategoriaFacadeImpl extends BaseFacadeImp<Categoria, CategoriaPadre
     }
 
     @Override
-    public List<CategoriaHijoDto> getCategoriasBySucursal(Long idSucursal) {
+    public List<CategoriaPadreDto> getCategoriasBySucursal(Long idSucursal) {
         var entities = categoriaService.getCategoriasBySucursal(idSucursal);
         return entities
                 .stream()
-                .map(categoriaMapper::toShortDTO)
+                .map(categoriaMapper::toDTO)
                 .toList();
     }
 
