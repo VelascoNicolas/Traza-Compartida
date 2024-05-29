@@ -63,8 +63,11 @@ public class CategoriaServiceImpl extends BaseServiceImp<Categoria,Long> impleme
     public Categoria editado(Long id, Categoria categoria) {
         Categoria c = categoriaRepository.findById(id).get();
         c.setDenominacion(categoria.getDenominacion());
+        c.setEliminado(categoria.isEliminado());
+        c.setSubCategorias(categoria.getSubCategorias());
         categoriaRepository.deleteSucursalCategoria(c.getId());
-        this.asociarSucursalCategoria(categoria);
+        c.setSucursales(categoria.getSucursales());
+        this.asociarSucursalCategoria(c);
         categoriaRepository.save(c);
         return c;
     }

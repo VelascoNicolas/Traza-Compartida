@@ -28,7 +28,7 @@ public class CategoriaController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CategoriaPadreDto> getById(@PathVariable Long id) {
+    public ResponseEntity<?> getById(@PathVariable Long id) {
         logger.info("INICIO GET BY Long {}", id);
         return ResponseEntity.ok(categoriaFacade.getById(id));
     }
