@@ -10,4 +10,8 @@ public interface CategoriaService extends BaseService<Categoria,Long> {
     void asociarSucursalCategoria(Categoria categoria);
 
     List<Categoria> getCategoriasBySucursal(Long idSucursal);
+    Categoria asociarSubcategoria(Long idCategoriaPadre, Categoria categoria);
+    List<Categoria> getCategoriasByPadre(Long idCategoriaPadre);
+
+    Categoria editado(Long id, Categoria categoria);
 }

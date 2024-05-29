@@ -1,10 +1,8 @@
 package com.entidades.buenSabor.presentation.rest;
 
 import com.entidades.buenSabor.business.facade.CategoriaFacade;
-import com.entidades.buenSabor.business.facade.Imp.CategoriaFacadeImpl;
-import com.entidades.buenSabor.domain.dto.CategoriaDto;
-import com.entidades.buenSabor.domain.dto.CategoriaShortDto;
-import com.entidades.buenSabor.domain.entities.Categoria;
+import com.entidades.buenSabor.domain.dto.CategoriaHijoDto;
+import com.entidades.buenSabor.domain.dto.CategoriaPadreDto;
 import com.entidades.buenSabor.presentation.rest.Base.BaseControllerImp;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,21 +22,27 @@ public class CategoriaController {
     private CategoriaFacade categoriaFacade;
 
     @GetMapping
-    public ResponseEntity<List<CategoriaDto>> getAll() {
+    public ResponseEntity<List<CategoriaPadreDto>> getAll() {
         logger.info("INICIO GET ALL{}");
         return ResponseEntity.ok(categoriaFacade.getAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CategoriaDto> getById(@PathVariable Long id) {
+    public ResponseEntity<CategoriaPadreDto> getById(@PathVariable Long id) {
         logger.info("INICIO GET BY Long {}", id);
         return ResponseEntity.ok(categoriaFacade.getById(id));
     }
 
-    @PostMapping
-    public ResponseEntity<?> createCategoria(@RequestBody CategoriaDto categoriaDto) {
-        logger.info("INICIO CREATE {}",categoriaDto.getClass());
-        return ResponseEntity.ok(categoriaFacade.postCategoria(categoriaDto));
+    @PostMapping("/padre")
+    public ResponseEntity<?> createCategoria(@RequestBody CategoriaPadreDto categoriaPadreDto) {
+        logger.info("INICIO CREATE {}", categoriaPadreDto.getClass());
+        return ResponseEntity.ok(categoriaFacade.postCategoria(categoriaPadreDto));
+    }
+
+    @PostMapping("/hijo/{idCategoriaPadre}")
+    public ResponseEntity<?> createCategoriaHijo(@PathVariable Long idCategoriaPadre, @RequestBody CategoriaHijoDto categoriaHijoDto) {
+        logger.info("INICIO CREATE {}", categoriaHijoDto.getClass());
+        return ResponseEntity.ok(categoriaFacade.postCategoriaHijo(idCategoriaPadre, categoriaHijoDto));
     }
 
     @DeleteMapping("/{id}")
@@ -51,5 +55,23 @@ public class CategoriaController {
     public ResponseEntity<List<?>> getCategoriasBySucursal(@PathVariable Long id) {
         logger.info("INICIO GET CATEGORIAS BY SUCURSAL");
         return ResponseEntity.ok(categoriaFacade.getCategoriasBySucursal(id));
+    }
+
+    @GetMapping("/padre/{id}")
+    public ResponseEntity<List<?>> getCategoriasByPadre(@PathVariable Long id) {
+        logger.info("INICIO GET CATEGORIAS BY PADRE");
+        return ResponseEntity.ok(categoriaFacade.getCategoriasByPadre(id));
+    }
+
+    @PutMapping("/padre/{id}")
+    public ResponseEntity<?> updateCategoria(@PathVariable Long id, @RequestBody CategoriaPadreDto categoriaPadreDto) {
+        logger.info("INICIO UPDATE CATEGORIA PADRE");
+        return ResponseEntity.ok(categoriaFacade.putPadre(id, categoriaPadreDto));
+    }
+
+    @PutMapping("hijo/{id}")
+    public ResponseEntity<?> updateCategoriaHijo(@PathVariable Long id, @RequestBody CategoriaHijoDto categoriaHijoDto) {
+        logger.info("INICIO UPDATE CATEGORIA HIJO");
+        return ResponseEntity.ok(categoriaFacade.putCategoria(id, categoriaHijoDto));
     }
 }

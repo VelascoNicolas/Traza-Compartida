@@ -6,8 +6,8 @@ import com.entidades.buenSabor.business.mapper.BaseMapper;
 import com.entidades.buenSabor.business.mapper.CategoriaMapper;
 import com.entidades.buenSabor.business.service.Base.BaseService;
 import com.entidades.buenSabor.business.service.CategoriaService;
-import com.entidades.buenSabor.domain.dto.CategoriaDto;
-import com.entidades.buenSabor.domain.dto.CategoriaShortDto;
+import com.entidades.buenSabor.domain.dto.CategoriaHijoDto;
+import com.entidades.buenSabor.domain.dto.CategoriaPadreDto;
 import com.entidades.buenSabor.domain.entities.Categoria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,8 +15,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class CategoriaFacadeImpl extends BaseFacadeImp<Categoria, CategoriaDto,Long> implements CategoriaFacade {
-    public CategoriaFacadeImpl(BaseService<Categoria, Long> baseService, BaseMapper<Categoria, CategoriaDto> baseMapper) {
+public class CategoriaFacadeImpl extends BaseFacadeImp<Categoria, CategoriaPadreDto,Long> implements CategoriaFacade {
+    public CategoriaFacadeImpl(BaseService<Categoria, Long> baseService, BaseMapper<Categoria, CategoriaPadreDto> baseMapper) {
         super(baseService, baseMapper);
     }
 
@@ -32,19 +32,50 @@ public class CategoriaFacadeImpl extends BaseFacadeImp<Categoria, CategoriaDto,L
     }
 
     @Override
-    public CategoriaShortDto postCategoria(CategoriaDto categoriaDto) {
-        Categoria request = categoriaMapper.toEntity(categoriaDto);
+    public CategoriaHijoDto postCategoria(CategoriaPadreDto categoriaPadreDto) {
+        Categoria request = categoriaMapper.toEntity(categoriaPadreDto);
         Categoria save = categoriaService.create(request);
         categoriaService.asociarSucursalCategoria(save);
         return categoriaMapper.toShortDTO(request);
     }
 
     @Override
-    public List<CategoriaShortDto> getCategoriasBySucursal(Long idSucursal) {
+    public CategoriaHijoDto postCategoriaHijo(Long idCategoriaPadre, CategoriaHijoDto categoriaHijoDto) {
+        Categoria request = categoriaMapper.aEntidad(categoriaHijoDto);
+        Categoria save = categoriaService.asociarSubcategoria(idCategoriaPadre ,request);
+        categoriaService.asociarSucursalCategoria(save);
+        return categoriaMapper.toShortDTO(save);
+    }
+
+    @Override
+    public List<CategoriaHijoDto> getCategoriasByPadre(Long idCategoriaPadre) {
+        var entities = categoriaService.getCategoriasByPadre(idCategoriaPadre);
+        return entities
+                .stream()
+                .map(categoriaMapper::toShortDTO)
+                .toList();
+    }
+
+    @Override
+    public List<CategoriaHijoDto> getCategoriasBySucursal(Long idSucursal) {
         var entities = categoriaService.getCategoriasBySucursal(idSucursal);
         return entities
                 .stream()
                 .map(categoriaMapper::toShortDTO)
                 .toList();
+    }
+
+    @Override
+    public CategoriaHijoDto putCategoria(Long id, CategoriaHijoDto categoriaHijoDto) {
+        Categoria request = categoriaMapper.aEntidad(categoriaHijoDto);
+        Categoria save = categoriaService.editado(id, request);
+        return categoriaMapper.toShortDTO(save);
+    }
+
+    @Override
+    public CategoriaHijoDto putPadre(Long id, CategoriaPadreDto categoriaPadreDto) {
+        Categoria request = categoriaMapper.toEntity(categoriaPadreDto);
+        Categoria save = categoriaService.editado(id, request);
+        return categoriaMapper.toShortDTO(save);
     }
 }

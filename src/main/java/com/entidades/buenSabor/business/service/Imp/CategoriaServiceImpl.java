@@ -8,6 +8,7 @@ import com.entidades.buenSabor.repositories.CategoriaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -36,5 +37,33 @@ public class CategoriaServiceImpl extends BaseServiceImp<Categoria,Long> impleme
     @Override
     public List<Categoria> getCategoriasBySucursal(Long idSucursal) {
         return categoriaRepository.getCategoriasBySucursal(idSucursal);
+    }
+
+    @Override
+    public Categoria asociarSubcategoria(Long idCategoriaPadre, Categoria categoriaHijo) {
+        categoriaRepository.save(categoriaHijo);
+        Categoria categoriaPadre = categoriaRepository.findById(idCategoriaPadre).get();
+        categoriaPadre.getSubCategorias().add(categoriaHijo);
+        categoriaRepository.save(categoriaPadre);
+
+        return categoriaHijo;
+    }
+
+    @Override
+    public List<Categoria> getCategoriasByPadre(Long idCategoriaPadre) {
+        Categoria categoriaPadre = categoriaRepository.findById(idCategoriaPadre).get();
+        List<Categoria> hijos = new ArrayList();
+        for(Categoria c : categoriaPadre.getSubCategorias()) {
+            hijos.add(c);
+        }
+        return hijos;
+    }
+
+    @Override
+    public Categoria editado(Long id, Categoria categoria) {
+        Categoria c = categoriaRepository.findById(id).get();
+        c.setDenominacion(categoria.getDenominacion());
+        categoriaRepository.save(c);
+        return c;
     }
 }

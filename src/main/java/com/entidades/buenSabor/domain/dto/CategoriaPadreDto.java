@@ -14,9 +14,8 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CategoriaDto extends BaseDto {
+public class CategoriaPadreDto extends BaseDto {
     private String denominacion;
     private Set<SucursalDto> sucursales = new HashSet<>();
-    private Set<ArticuloDto> articulos = new HashSet<>();
-    private Set<CategoriaDto> subCategorias = new HashSet<>();
+    private Set<CategoriaHijoDto> subCategorias = new HashSet<>();
 }

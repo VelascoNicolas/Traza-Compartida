@@ -16,5 +16,5 @@ public class ArticuloDto extends BaseDto{
     protected Double precioVenta;
     protected Set<ImagenDto> imagenes = new HashSet<>();
     protected UnidadMedidaDto unidadMedida;
-    protected CategoriaShortDto categoria;
+    protected CategoriaHijoDto categoria;
 }

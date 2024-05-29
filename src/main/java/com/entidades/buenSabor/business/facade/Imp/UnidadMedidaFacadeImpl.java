@@ -6,14 +6,10 @@ import com.entidades.buenSabor.business.mapper.BaseMapper;
 import com.entidades.buenSabor.business.mapper.UnidadMedidaMapper;
 import com.entidades.buenSabor.business.service.Base.BaseService;
 import com.entidades.buenSabor.business.service.UnidadMedidaService;
-import com.entidades.buenSabor.domain.dto.CategoriaDto;
 import com.entidades.buenSabor.domain.dto.UnidadMedidaDto;
-import com.entidades.buenSabor.domain.entities.Categoria;
 import com.entidades.buenSabor.domain.entities.UnidadMedida;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class UnidadMedidaFacadeImpl extends BaseFacadeImp<UnidadMedida, UnidadMedidaDto, Long> implements UnidadMedidaFacade {
