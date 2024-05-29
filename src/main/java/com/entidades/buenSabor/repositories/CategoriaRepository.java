@@ -27,6 +27,11 @@ public interface CategoriaRepository extends BaseRepository<Categoria,Long>{
             "VALUES (?1, ?2);", nativeQuery = true)
     void insertarSucursalCategoria(Long idSucursal, Long idCategoria);
 
+    @Modifying
+    @Transactional
+    @Query(value = "DELETE * FROM SUCURSAL_CATEGORIA WHERE CATEGORIA_ID = ?1;", nativeQuery = true)
+    void deleteSucursalCategoria(Long idCategoria);
+
     @Query(value = "SELECT c.ID, c.ELIMINADO, c.DENOMINACION, c.CATEGORIA_ID\n" +
             "FROM CATEGORIA c\n" +
             "JOIN SUCURSAL_CATEGORIA sc ON c.ID = sc.CATEGORIA_ID\n" +
