@@ -4,6 +4,7 @@ import com.entidades.buenSabor.domain.enums.Rol;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.envers.Audited;
 import org.hibernate.envers.NotAudited;
 
 import java.time.LocalDate;
@@ -16,7 +17,7 @@ import java.util.Set;
 @Setter
 @Getter
 @SuperBuilder
-//@Audited
+@Audited
 public class Empleado extends Base{
     private Rol tipoEmpleado;
     private String nombre;

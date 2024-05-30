@@ -17,4 +17,9 @@ public interface ImagenArticuloRepository extends BaseRepository<ImagenArticulo,
     @Modifying
     @Query(value = "UPDATE IMAGEN_ARTICULO SET ELIMINADO = false WHERE ARTICULO_ID = ?1", nativeQuery = true)
     void altaLogica(Long articuloId);
+
+    @Transactional
+    @Modifying
+    @Query(value = "UPDATE IMAGEN_ARTICULO SET ELIMINADO = true WHERE ID = ?1", nativeQuery = true)
+    void deleteImagen(Long id);
 }
