@@ -79,4 +79,10 @@ public class ArticuloInsumoFacadeImpl  implements ArticuloInsumoFacade {
     public ResponseEntity<String> deleteImage(String publicId, Long id) {
         return articuloInsumoService.deleteImage(publicId, id);
     }
+
+    @Override
+    public List<ArticuloInsumoDto> getElaborados() {
+        List<ArticuloInsumo> articulosInsumos = articuloInsumoService.getElaborados();
+        return articuloMapper.toDtoListInsumo(articulosInsumos);
+    }
 }

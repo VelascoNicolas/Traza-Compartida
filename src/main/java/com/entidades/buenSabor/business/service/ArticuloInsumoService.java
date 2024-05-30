@@ -20,4 +20,5 @@ public interface ArticuloInsumoService extends BaseService<ArticuloInsumo,Long> 
     ResponseEntity<String> uploadImages(MultipartFile[] files, Long id);
     // Método para eliminar una imagen por su identificador público y Long
     ResponseEntity<String> deleteImage(String publicId, Long id);
+    List<ArticuloInsumo> getElaborados();
 }

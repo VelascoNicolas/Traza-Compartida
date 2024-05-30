@@ -14,4 +14,7 @@ public interface ArticuloInsumoRepository extends BaseRepository<ArticuloInsumo,
             "JOIN ARTICULO a ON ai.ID = a.ID\n" +
             "WHERE a.CATEGORIA_ID = ?1", nativeQuery = true)
     List<ArticuloInsumo> getArticulosByCategoria(Long idCategoria);
+
+    @Query(value = "SELECT * FROM ARTICULO_INSUMO ai JOIN ARTICULO a ON ai.ID = a.ID WHERE ES_PARA_ELABORAR = TRUE", nativeQuery = true)
+    List<ArticuloInsumo> getElaborados();
 }

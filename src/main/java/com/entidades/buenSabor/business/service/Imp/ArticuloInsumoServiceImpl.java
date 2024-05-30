@@ -153,4 +153,9 @@ public class ArticuloInsumoServiceImpl extends BaseServiceImp<ArticuloInsumo,Lon
             return new ResponseEntity<>("{\"status\":\"ERROR\", \"message\":\"" + e.getMessage() + "\"}", HttpStatus.BAD_REQUEST);
         }
     }
+
+    @Override
+    public List<ArticuloInsumo> getElaborados() {
+        return articuloRepository.getElaborados();
+    }
 }

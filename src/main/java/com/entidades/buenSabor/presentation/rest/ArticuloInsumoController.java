@@ -55,9 +55,9 @@ public class ArticuloInsumoController  {
         return ResponseEntity.ok(articuloInsumoFacade.deleteById(id));
     }
 
-    @GetMapping("/categoria/{id}")
-    public ResponseEntity<?> getArticulosInsumosByCategoria(@PathVariable Long id) {
-        logger.info("INICIO GET ARTICULOS INSUMOS BY CATEGORIA");
+    @GetMapping("/sucursal/{id}")
+    public ResponseEntity<?> getArticulosInsumosBySucursal(@PathVariable Long id) {
+        logger.info("INICIO GET ARTICULOS INSUMOS BY Sucursal");
         return ResponseEntity.ok(articuloInsumoFacade.getArticuloInsumoBySucursal(id));
     }
 
@@ -99,5 +99,11 @@ public class ArticuloInsumoController  {
             e.printStackTrace();
             return null; // Manejo básico de errores, se puede mejorar para devolver una respuesta más específica
         }
+    }
+
+    @GetMapping("/elaborados")
+    public ResponseEntity<List<?>> getElaborados() {
+        logger.info("INICIO GET ELABORADOS");
+        return ResponseEntity.ok(articuloInsumoFacade.getElaborados());
     }
 }
