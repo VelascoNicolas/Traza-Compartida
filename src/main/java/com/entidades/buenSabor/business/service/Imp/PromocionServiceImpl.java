@@ -129,4 +129,20 @@ public class PromocionServiceImpl extends BaseServiceImp<Promocion,Long> impleme
     public void asociarArticulo(Long detalleId, Long idArticulo) {
         promocionRepository.updatePromocionDetalle(detalleId, idArticulo);
     }
+
+    @Override
+    public void editarArticulos(Long detalleId, boolean isEliminado, Long idArticulo) {
+        if (isEliminado == true) {
+            promocionRepository.updatePromocionDetalle(detalleId, idArticulo);
+            promocionRepository.deletePromocionDetalle(detalleId);
+        }
+        if (isEliminado == false) {
+            promocionRepository.updatePromocionDetalle(detalleId, idArticulo);
+        }
+    }
+
+    @Override
+    public void eliminarDetalles(Long PromocionId) {
+        promocionRepository.deleteAll(PromocionId);
+    }
 }

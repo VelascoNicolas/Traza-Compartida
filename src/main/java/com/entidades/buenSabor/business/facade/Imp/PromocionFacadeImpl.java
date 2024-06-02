@@ -63,11 +63,40 @@ public class PromocionFacadeImpl extends BaseFacadeImp<Promocion, PromocionDto,L
             i++;
         }
 
-        return this.getById(save.getId());
+        return promocionMapper.toDTO(save);
     }
 
     @Override
     public void asociarArticulo(Long detalleId, Long idArticulo) {
         promocionService.asociarArticulo(detalleId, idArticulo);
+    }
+
+    @Override
+    public PromocionDto actualizarPromocion(PromocionDto dto, Long id) {
+        Promocion promocion = promocionMapper.toEntity(dto);
+        Promocion save = promocionService.create2(promocion);
+        ArrayList<Long> detallitos = new ArrayList<>();
+        for (PromocionDetalle pd: save.getPromocionDetalles()) {
+            detallitos.add(pd.getId());
+        }
+        int i = 0;
+        for(PromocionDetalleDto pd: dto.getPromocionDetalles()) {
+            this.editarArticulos(detallitos.get(i), pd.isEliminado(), pd.getArticulo().getId());
+            i++;
+        }
+
+        return promocionMapper.toDTO(save);
+    }
+
+    @Override
+    public void editarArticulos(Long idDetalle, boolean isEliminado, Long idArticulo) {
+        promocionService.editarArticulos(idDetalle, isEliminado, idArticulo);
+    }
+
+    @Override
+    public String deleteAll(Long id) {
+        this.deleteById(id);
+        promocionService.eliminarDetalles(id);
+        return "PROMOCION ELIMINADA SATISFACTORIAMENTE";
     }
 }

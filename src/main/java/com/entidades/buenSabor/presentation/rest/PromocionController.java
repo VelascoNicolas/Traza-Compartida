@@ -20,5 +20,13 @@ public class PromocionController extends BaseControllerImp<Promocion, PromocionD
         return ResponseEntity.ok().body(facade.createPromocion(dto));
     }
 
+    @PutMapping("/update/{id}")
+    public ResponseEntity<?> actualizarPromocion(@RequestBody PromocionDto dto, @PathVariable Long id) {
+        return ResponseEntity.ok().body(facade.actualizarPromocion(dto, id));
+    }
 
+    @DeleteMapping("delete/{id}")
+    public ResponseEntity<?> eliminarPromocion(@PathVariable Long id) {
+        return ResponseEntity.ok().body(facade.deleteAll(id));
+    }
 }

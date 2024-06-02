@@ -18,4 +18,8 @@ public interface PromocionFacade extends BaseFacade<PromocionDto,Long> {
 
     PromocionDto createPromocion(PromocionDto dto);
     void asociarArticulo(Long idPromocion, Long idArticulo);
+
+    PromocionDto actualizarPromocion(PromocionDto dto, Long id);
+    void editarArticulos(Long idDetalle, boolean eliminado, Long idArticulo);
+    String deleteAll(Long id);
 }
