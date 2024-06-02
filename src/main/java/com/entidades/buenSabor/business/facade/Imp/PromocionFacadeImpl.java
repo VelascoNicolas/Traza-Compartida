@@ -53,15 +53,21 @@ public class PromocionFacadeImpl extends BaseFacadeImp<Promocion, PromocionDto,L
     public PromocionDto createPromocion(PromocionDto dto) {
         Promocion promocion = promocionMapper.toEntity(dto);
         Promocion save = promocionService.create2(promocion);
-        for (PromocionDetalleDto pd : dto.getPromocionDetalles()) {
-            this.asociarArticulo(save.getId(), pd.getArticulo().getId());
+        ArrayList<Long> detallitos = new ArrayList<>();
+        for (PromocionDetalle pd: save.getPromocionDetalles()) {
+            detallitos.add(pd.getId());
         }
-        Promocion promo = promocionService.getById(save.getId());
-        return promocionMapper.toDTO(promocion);
+        int i = 0;
+        for(PromocionDetalleDto pd: dto.getPromocionDetalles()) {
+            this.asociarArticulo(detallitos.get(i), pd.getArticulo().getId());
+            i++;
+        }
+
+        return this.getById(save.getId());
     }
 
     @Override
-    public void asociarArticulo(Long idPromocion, Long idArticulo) {
-        promocionService.asociarArticulo(idPromocion, idArticulo);
+    public void asociarArticulo(Long detalleId, Long idArticulo) {
+        promocionService.asociarArticulo(detalleId, idArticulo);
     }
 }

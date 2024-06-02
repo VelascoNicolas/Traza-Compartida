@@ -14,7 +14,7 @@ public interface PromocionRepository extends BaseRepository<Promocion,Long>{
 
     @Modifying
     @Transactional
-    @Query(value = "UPDATE PROMOCION_DETALLE SET ARTICULO_ID = :articuloId WHERE PROMOCION_ID = :promocionId", nativeQuery = true)
-    void updatePromocionDetalle(@Param("promocionId") Long promocionId, @Param("articuloId") Long articuloId);
+    @Query(value = "UPDATE PROMOCION_DETALLE SET ARTICULO_ID = :articuloId WHERE ID = :id", nativeQuery = true)
+    void updatePromocionDetalle(@Param("id") Long detalleId, @Param("articuloId") Long articuloId);
 
 }

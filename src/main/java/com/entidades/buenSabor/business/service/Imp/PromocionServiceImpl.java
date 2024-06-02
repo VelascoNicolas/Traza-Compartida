@@ -126,7 +126,7 @@ public class PromocionServiceImpl extends BaseServiceImp<Promocion,Long> impleme
     }
 
     @Override
-    public void asociarArticulo(Long idPromocion, Long idArticulo) {
-        promocionRepository.updatePromocionDetalle(idPromocion, idArticulo);
+    public void asociarArticulo(Long detalleId, Long idArticulo) {
+        promocionRepository.updatePromocionDetalle(detalleId, idArticulo);
     }
 }

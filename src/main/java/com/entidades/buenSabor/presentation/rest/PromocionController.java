@@ -19,4 +19,6 @@ public class PromocionController extends BaseControllerImp<Promocion, PromocionD
     public ResponseEntity<?> guardarPromocion(@RequestBody PromocionDto dto) {
         return ResponseEntity.ok().body(facade.createPromocion(dto));
     }
+
+
 }

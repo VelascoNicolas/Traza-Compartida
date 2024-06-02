@@ -4,6 +4,6 @@ import com.entidades.buenSabor.domain.dto.PromocionDto;
 import com.entidades.buenSabor.domain.entities.Promocion;
 import org.mapstruct.Mapper;
 
-@Mapper(componentModel = "spring",uses={SucursalMapper.class,ImagenPromocionMapper.class,PromocionDetalleMapper.class})
+@Mapper(componentModel = "spring",uses={SucursalMapper.class,ImagenPromocionMapper.class,PromocionDetalleMapper.class,ArticuloMapper.class})
 public interface PromocionMapper extends BaseMapper<Promocion, PromocionDto>{
 }
