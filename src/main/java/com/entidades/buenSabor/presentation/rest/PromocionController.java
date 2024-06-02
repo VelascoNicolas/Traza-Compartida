@@ -7,25 +7,39 @@ import com.entidades.buenSabor.presentation.rest.Base.BaseControllerImp;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/promocion")
 @CrossOrigin("*")
-public class PromocionController extends BaseControllerImp<Promocion, PromocionDto,Long, PromocionFacadeImpl> {
+public class PromocionController {
+    private PromocionFacadeImpl facade;
+
     public PromocionController(PromocionFacadeImpl facade) {
-        super(facade);
+        this.facade = facade;
     }
 
-    @PostMapping("/create")
+    @GetMapping
+    public ResponseEntity<List<?>> getAll() {
+        return ResponseEntity.ok().body(facade.getAll());
+    }
+
+    @GetMapping("{id}")
+    public ResponseEntity<?> getById(@PathVariable Long id) {
+        return ResponseEntity.ok().body(facade.getById(id));
+    }
+
+    @PostMapping
     public ResponseEntity<?> guardarPromocion(@RequestBody PromocionDto dto) {
         return ResponseEntity.ok().body(facade.createPromocion(dto));
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<?> actualizarPromocion(@RequestBody PromocionDto dto, @PathVariable Long id) {
         return ResponseEntity.ok().body(facade.actualizarPromocion(dto, id));
     }
 
-    @DeleteMapping("delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> eliminarPromocion(@PathVariable Long id) {
         return ResponseEntity.ok().body(facade.deleteAll(id));
     }
