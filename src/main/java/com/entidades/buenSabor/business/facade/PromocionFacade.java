@@ -15,4 +15,7 @@ public interface PromocionFacade extends BaseFacade<PromocionDto,Long> {
     ResponseEntity<String> uploadImages(MultipartFile[] files, Long id);
     // Método para eliminar una imagen por su identificador público y UUID
     ResponseEntity<String> deleteImage(String publicId, Long id);
+
+    PromocionDto createPromocion(PromocionDto dto);
+    void asociarArticulo(Long idPromocion, Long idArticulo);
 }

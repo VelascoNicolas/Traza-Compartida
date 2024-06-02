@@ -5,7 +5,9 @@ import com.entidades.buenSabor.business.service.CloudinaryService;
 import com.entidades.buenSabor.business.service.PromocionService;
 import com.entidades.buenSabor.domain.entities.ImagenPromocion;
 import com.entidades.buenSabor.domain.entities.Promocion;
+import com.entidades.buenSabor.domain.entities.PromocionDetalle;
 import com.entidades.buenSabor.repositories.ImagenPromocionRepository;
+import com.entidades.buenSabor.repositories.PromocionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +24,9 @@ public class PromocionServiceImpl extends BaseServiceImp<Promocion,Long> impleme
 
     @Autowired
     private ImagenPromocionRepository imagenRepo;
+
+    @Autowired
+    private PromocionRepository promocionRepository;
 
 
     // Método para obtener todas las imágenes almacenadas
@@ -113,5 +118,15 @@ public class PromocionServiceImpl extends BaseServiceImp<Promocion,Long> impleme
             // Devolver un error (400) si ocurre alguna excepción durante la eliminación
             return new ResponseEntity<>("{\"status\":\"ERROR\", \"message\":\"" + e.getMessage() + "\"}", HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @Override
+    public Promocion create2(Promocion promocion) {
+        return promocionRepository.save(promocion);
+    }
+
+    @Override
+    public void asociarArticulo(Long idPromocion, Long idArticulo) {
+        promocionRepository.updatePromocionDetalle(idPromocion, idArticulo);
     }
 }

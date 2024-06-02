@@ -12,7 +12,7 @@ import lombok.Setter;
 @Setter
 @Getter
 public class PromocionDetalleDto extends BaseDto{
-    private int cantidad;
 
+    private int cantidad;
     private ArticuloDto articulo;
 }
