@@ -6,6 +6,7 @@ import com.entidades.buenSabor.business.mapper.BaseMapper;
 import com.entidades.buenSabor.business.mapper.CategoriaMapper;
 import com.entidades.buenSabor.business.service.Base.BaseService;
 import com.entidades.buenSabor.business.service.CategoriaService;
+import com.entidades.buenSabor.domain.dto.CategoriaClaseDTO;
 import com.entidades.buenSabor.domain.dto.CategoriaHijoDto;
 import com.entidades.buenSabor.domain.dto.CategoriaPadreDto;
 import com.entidades.buenSabor.domain.entities.Categoria;
@@ -57,11 +58,11 @@ public class CategoriaFacadeImpl extends BaseFacadeImp<Categoria, CategoriaPadre
     }
 
     @Override
-    public List<CategoriaPadreDto> getCategoriasBySucursal(Long idSucursal) {
+    public List<CategoriaClaseDTO> getCategoriasBySucursal(Long idSucursal) {
         var entities = categoriaService.getCategoriasBySucursal(idSucursal);
         return entities
                 .stream()
-                .map(categoriaMapper::toDTO)
+                .map(categoriaMapper::toClaseDTO)
                 .toList();
     }
 

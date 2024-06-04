@@ -1,6 +1,7 @@
 package com.entidades.buenSabor.business.facade;
 
 import com.entidades.buenSabor.business.facade.Base.BaseFacade;
+import com.entidades.buenSabor.domain.dto.CategoriaClaseDTO;
 import com.entidades.buenSabor.domain.dto.CategoriaHijoDto;
 import com.entidades.buenSabor.domain.dto.CategoriaPadreDto;
 
@@ -15,7 +16,7 @@ public interface CategoriaFacade extends BaseFacade<CategoriaPadreDto,Long> {
 
     List<CategoriaHijoDto> getCategoriasByPadre(Long idCategoriaPadre);
 
-    List<CategoriaPadreDto> getCategoriasBySucursal(Long idSucursal);
+    List<CategoriaClaseDTO> getCategoriasBySucursal(Long idSucursal);
 
     CategoriaHijoDto putCategoria(Long id, CategoriaHijoDto categoriaHijoDto);
     CategoriaHijoDto putPadre(Long id, CategoriaPadreDto categoriaPadreDto);
