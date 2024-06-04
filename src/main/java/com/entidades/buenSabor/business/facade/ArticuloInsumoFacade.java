@@ -23,4 +23,5 @@ public interface ArticuloInsumoFacade  {
     ResponseEntity<String> deleteImage(String publicId, Long id);
 
     public List<ArticuloInsumoDto> getElaborados();
+    public List<ArticuloInsumoDto> getNoElaborados();
 }

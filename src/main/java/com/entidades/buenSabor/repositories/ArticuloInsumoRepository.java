@@ -17,4 +17,6 @@ public interface ArticuloInsumoRepository extends BaseRepository<ArticuloInsumo,
 
     @Query(value = "SELECT * FROM ARTICULO_INSUMO ai JOIN ARTICULO a ON ai.ID = a.ID WHERE ES_PARA_ELABORAR = TRUE", nativeQuery = true)
     List<ArticuloInsumo> getElaborados();
+    @Query(value = "SELECT * FROM ARTICULO_INSUMO ai JOIN ARTICULO a ON ai.ID = a.ID WHERE ES_PARA_ELABORAR = FALSE", nativeQuery = true)
+    List<ArticuloInsumo> getNoElaborados();
 }

@@ -106,4 +106,10 @@ public class ArticuloInsumoController  {
         logger.info("INICIO GET ELABORADOS");
         return ResponseEntity.ok(articuloInsumoFacade.getElaborados());
     }
+
+    @GetMapping("/noElaborados")
+    public ResponseEntity<List<?>> getNoElaborados() {
+        logger.info("INICIO GET NO ELABORADOS");
+        return ResponseEntity.ok(articuloInsumoFacade.getNoElaborados());
+    }
 }
