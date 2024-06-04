@@ -22,4 +22,6 @@ public interface PromocionService extends BaseService<Promocion,Long> {
     void asociarArticulo(Long detalleId, Long idArticulo);
     void editarArticulos(Long detalleId, boolean isEliminado, Long idArticulo);
     void eliminarDetalles(Long PromocionId);
+    List<Promocion> getPromocionesBySucursalId(Long id);
+    void asociarSucursal(Long idPromocion, Long idSucursal);
 }

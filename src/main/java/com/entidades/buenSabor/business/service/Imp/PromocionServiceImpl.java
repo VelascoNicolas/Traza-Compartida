@@ -145,4 +145,14 @@ public class PromocionServiceImpl extends BaseServiceImp<Promocion,Long> impleme
     public void eliminarDetalles(Long PromocionId) {
         promocionRepository.deleteAll(PromocionId);
     }
+
+    @Override
+    public List<Promocion> getPromocionesBySucursalId(Long id) {
+        return promocionRepository.getPromocionesBySucursalId(id);
+    }
+
+    @Override
+    public void asociarSucursal(Long idPromocion, Long idSucursal) {
+        promocionRepository.asociarSucursal(idPromocion, idSucursal);
+    }
 }

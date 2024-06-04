@@ -22,4 +22,5 @@ public interface PromocionFacade extends BaseFacade<PromocionDto,Long> {
     PromocionDto actualizarPromocion(PromocionDto dto, Long id);
     void editarArticulos(Long idDetalle, boolean eliminado, Long idArticulo);
     String deleteAll(Long id);
+    List<PromocionDto> getPromocionesBySucursalId(Long id);
 }

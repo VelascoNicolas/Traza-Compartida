@@ -413,7 +413,7 @@ public class BuenSaborApplication {
 
 			//sucursalRepository.findById();
 //--------------------- ESTOS SAVE SE HACIAN NUEVAMENTE CON LA INSTANCIA ANTERIOR
-//  Por eso daba duplicado, revisa rla logica de esta parte
+//  Por eso daba duplicado, revisar la logica de esta parte
 			// Sucursal Guaymallee
 			Sucursal sucursalId1 = sucursalRepository.findWithPromocionesById(1L);
 			Sucursal sucursalId2 = sucursalRepository.findWithPromocionesById(2L);
