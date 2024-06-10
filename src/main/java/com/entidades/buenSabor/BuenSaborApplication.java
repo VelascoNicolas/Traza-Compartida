@@ -455,7 +455,8 @@ public class BuenSaborApplication {
 			domicilioRepository.save(domicilioCliente);
 			UsuarioCliente usuarioCliente = UsuarioCliente.builder().userName("sebastian").auth0Id("9565a49d-ecc1-4f4e-adea-6cdcb7edc4a3").build();
 			usuarioClienteRepository.save(usuarioCliente);
-			UsuarioEmpleado usuarioEmpleado = UsuarioEmpleado.builder().userName("martin").auth0Id("9565a49d-ecc1-4f4e-adea-6cdcb7edc43a").build();
+			UsuarioEmpleado usuarioEmpleado = UsuarioEmpleado.builder().userName("martin").password("9565a49d-ecc1-4f4e-adea-6cdcb7edc43a").build();
+			usuarioEmpleado.setTipoEmpleado(Rol.CAJERO);
 			usuarioEmpleadoRepository.save(usuarioEmpleado);
 
 			Cliente cliente = new Cliente();
@@ -473,7 +474,6 @@ public class BuenSaborApplication {
 			Empleado empleado=new Empleado();
 
 			empleado.setEmail("correoFalso@hotmail.com");
-			empleado.setTipoEmpleado(Rol.CAJERO);
 			empleado.setNombre("CorreoFalso");
 			empleado.setApellido("Falsin");
 			empleado.setUsuarioEmpleado(usuarioEmpleado);
@@ -481,7 +481,6 @@ public class BuenSaborApplication {
 			//	empleado.setEstaActivo(true);
 			empleado.setImagenEmpleado(imagenEmpleado);
 			empleado.setSucursal(sucursalGuaymallen);
-			empleado.setTipoEmpleado(Rol.ADMIN);
 			sucursalGuaymallen.getEmpleados().add(empleado);
 			empleadoRepository.save(empleado);
 			logger.info("Empleado{}:",empleado);

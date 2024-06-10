@@ -1,0 +1,41 @@
+package com.entidades.buenSabor.business.facade.Imp;
+
+import com.entidades.buenSabor.business.facade.Base.BaseFacadeImp;
+import com.entidades.buenSabor.business.facade.EmpleadoFacade;
+import com.entidades.buenSabor.business.mapper.BaseMapper;
+import com.entidades.buenSabor.business.service.Base.BaseService;
+import com.entidades.buenSabor.business.service.EmpleadoService;
+import com.entidades.buenSabor.domain.dto.EmpleadoDTO;
+import com.entidades.buenSabor.domain.entities.Empleado;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
+import java.util.Map;
+
+@Service
+public class EmpleadoFacadeImpl extends BaseFacadeImp<Empleado, EmpleadoDTO, Long> implements EmpleadoFacade {
+    public EmpleadoFacadeImpl(BaseService<Empleado, Long> baseService, BaseMapper<Empleado, EmpleadoDTO> baseMapper) {
+        super(baseService, baseMapper);
+    }
+
+    @Autowired
+    private EmpleadoService empleadoService;
+
+    @Override
+    public ResponseEntity<List<Map<String, Object>>> getAllImagesByEmpleadoId(Long id) {
+        return empleadoService.getAllImagesByEmpleadoId(id);
+    }
+
+    @Override
+    public ResponseEntity<String> uploadImages(MultipartFile[] files, Long id) {
+        return empleadoService.uploadImages(files, id);
+    }
+
+    @Override
+    public ResponseEntity<String> deleteImage(String publicId, Long id) {
+        return empleadoService.deleteImage(publicId, id);
+    }
+}

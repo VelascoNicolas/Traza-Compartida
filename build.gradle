@@ -53,6 +53,9 @@ dependencies {
 
 	//ENVERS
 	implementation 'org.hibernate.orm:hibernate-envers:6.4.4.Final'
+
+	// https://mvnrepository.com/artifact/org.springframework.security/spring-security-crypto
+	implementation 'org.springframework.security:spring-security-crypto:6.3.0'
 }
 
 tasks.named('test') {

@@ -19,7 +19,6 @@ import java.util.Set;
 @SuperBuilder
 @Audited
 public class Empleado extends Base{
-    private Rol tipoEmpleado;
     private String nombre;
     private String apellido;
     private String telefono;
