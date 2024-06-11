@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Map;
 
 public interface EmpleadoFacade extends BaseFacade<EmpleadoDTO, Long> {
+
+    List<EmpleadoDTO> getAllEmpleados();
     //Imagenes
     // Método para obtener todas las imágenes almacenadas
     ResponseEntity<List<Map<String, Object>>> getAllImagesByEmpleadoId(Long id);

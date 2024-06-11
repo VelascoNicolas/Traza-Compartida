@@ -478,6 +478,7 @@ public class BuenSaborApplication {
 			empleado.setApellido("Falsin");
 			empleado.setUsuarioEmpleado(usuarioEmpleado);
 			empleado.setTelefono("2612151170");
+			empleado.setFechaNacimiento(LocalDate.of(1996,06,30));
 			//	empleado.setEstaActivo(true);
 			empleado.setImagenEmpleado(imagenEmpleado);
 			empleado.setSucursal(sucursalGuaymallen);

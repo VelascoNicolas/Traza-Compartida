@@ -1,6 +1,7 @@
 package com.entidades.buenSabor.domain.entities;
 
 import com.entidades.buenSabor.domain.enums.Rol;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -34,12 +35,12 @@ public class Empleado extends Base{
 
 
     @OneToMany(mappedBy = "empleado", cascade = CascadeType.REFRESH, orphanRemoval = true)
-    @ToString.Exclude
+    @JsonIgnore
     @Builder.Default
     private Set<Pedido> pedidos= new HashSet<>();
 
     @ManyToOne
-    @ToString.Exclude
+    @JsonIgnore
     @JoinColumn(name = "sucursal_id")
     private Sucursal sucursal;
 }

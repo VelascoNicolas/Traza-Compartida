@@ -3,6 +3,7 @@ package com.entidades.buenSabor.business.facade.Imp;
 import com.entidades.buenSabor.business.facade.Base.BaseFacadeImp;
 import com.entidades.buenSabor.business.facade.EmpleadoFacade;
 import com.entidades.buenSabor.business.mapper.BaseMapper;
+import com.entidades.buenSabor.business.mapper.EmpleadoMapper;
 import com.entidades.buenSabor.business.service.Base.BaseService;
 import com.entidades.buenSabor.business.service.EmpleadoService;
 import com.entidades.buenSabor.domain.dto.EmpleadoDTO;
@@ -23,6 +24,14 @@ public class EmpleadoFacadeImpl extends BaseFacadeImp<Empleado, EmpleadoDTO, Lon
 
     @Autowired
     private EmpleadoService empleadoService;
+
+    @Autowired
+    private EmpleadoMapper empleadoMapper;
+
+    @Override
+    public List<EmpleadoDTO> getAllEmpleados() {
+        return empleadoMapper.toDTOsList(empleadoService.getAll());
+    }
 
     @Override
     public ResponseEntity<List<Map<String, Object>>> getAllImagesByEmpleadoId(Long id) {
