@@ -20,4 +20,12 @@ public interface SucursalRepository extends BaseRepository<Sucursal,Long> {
 
     @Query(value = "SELECT * FROM SUCURSAL WHERE EMPRESA_ID = ?1", nativeQuery = true)
     List<Sucursal> getAllByEmpresa(Long idEmpresa);
+
+    @Query(value = "SELECT s.*, d.*, l.*, p.*\n" +
+            "FROM SUCURSAL s\n" +
+            "JOIN DOMICILIO d ON d.ID = s.DOMICILIO_ID\n" +
+            "JOIN LOCALIDAD l ON d.LOCALIDAD_ID = l.ID\n" +
+            "JOIN PROVINCIA p ON l.PROVINCIA_ID = p.ID\n" +
+            "WHERE p.ID = ?1 AND l.ID = ?2 ", nativeQuery = true)
+    List<Sucursal> getAllByUbicacion(Long idProvincia, Long idLocalidad);
 }

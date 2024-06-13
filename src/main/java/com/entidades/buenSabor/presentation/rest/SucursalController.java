@@ -44,4 +44,12 @@ public class SucursalController extends BaseControllerImp<Sucursal, SucursalDto,
         return ResponseEntity.ok().body(facade.getAllByEmpresa(idEmpresa));
     }
 
+    @GetMapping("/provincias")
+    public ResponseEntity<List<SucursalDto>> getAllByProvincia(@RequestParam Long idProvincia,
+                                                               @RequestParam Long idLocalidad) {
+        logger.info("Getting All Sucursales by Provincia " + idProvincia);
+        return ResponseEntity.ok().body(facade.getAllByUbicacion(idProvincia, idLocalidad));
+    }
+
+
 }

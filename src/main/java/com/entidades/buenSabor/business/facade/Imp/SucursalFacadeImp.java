@@ -44,6 +44,15 @@ public class SucursalFacadeImp extends BaseFacadeImp<Sucursal, SucursalDto,Long>
     }
 
     @Override
+    public List<SucursalDto> getAllByUbicacion(Long idProvincia, Long idLocalidad) {
+        var entidades = sucursalService.getAllByUbicacion(idProvincia, idLocalidad);
+        return entidades
+                .stream()
+                .map(baseMapper::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public List<SucursalDto> getAllByEmpresa(Long idEmpresa) {
         var entidades = sucursalService.getAllByEmpresa(idEmpresa);
         return entidades

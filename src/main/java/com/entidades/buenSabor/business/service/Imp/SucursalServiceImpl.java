@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -50,6 +51,19 @@ public class SucursalServiceImpl extends BaseServiceImp<Sucursal,Long> implement
         sucursal.setDomicilio(domicilio);
         sucursal.setEmpresa(empresa);
         return sucursalRepository.save(sucursal);
+    }
+
+    @Override
+    public List<Sucursal> getAllByUbicacion(Long idProvincia, Long idLocalidad) {
+        //return sucursalRepository.getAllByUbicacion(idProvincia, idLocalidad);
+        List<Sucursal> sucursales = sucursalRepository.findAll();
+        List<Sucursal> ubicacion = new ArrayList<>();
+        for (Sucursal sucursal : sucursales) {
+            if (sucursal.getDomicilio().getLocalidad().getId() == idLocalidad && sucursal.getDomicilio().getLocalidad().getProvincia().getId() == idProvincia) {
+                ubicacion.add(sucursal);
+            }
+        }
+        return ubicacion;
     }
 
     @Override
